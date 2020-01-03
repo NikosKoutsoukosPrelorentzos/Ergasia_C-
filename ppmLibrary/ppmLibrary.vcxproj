@@ -143,9 +143,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ppm.cpp" />
+    <ClCompile Include="ppmFormat.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ppm.h" />
+    <ClInclude Include="ppmFormat.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

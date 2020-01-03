@@ -1,4 +1,5 @@
 #include "ppm.h"
+#include "ppmFormat.h"
 #include <fstream>
 #include <iostream>
 #include <cstdint>
@@ -37,19 +38,12 @@ namespace image {
 		else {
 			cout << "File not found!!!";
 		}
-		return ppm.data;
 
+		return ppm.data;
 	}
 
 	bool WritePPM(const float* data, int w, int h, const char* filename) {
 		bool a = false;
 		return a;
 	}
-
-	PPM::PPM() {}
-
-	PPM::PPM(string magic, int width, int height, int maxColor) : magic(magic), width(width), height(height), maxColor(maxColor) {
-		this->data = new float(width * height * 3);
-	}
-
 }
