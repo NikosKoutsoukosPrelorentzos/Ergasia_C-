@@ -2,7 +2,7 @@
 #include "ppmFormat.h"
 #include <fstream>
 #include <iostream>
-#include <cstdint>
+#include <cstddef>
 
 
 namespace image {
@@ -12,7 +12,7 @@ namespace image {
 		PPM ppm;
 		//imageData = new float(*w * *h);
 
-		ifstream inputFile = ifstream(filename, std::ios_base::binary);
+		ifstream inputFile = ifstream(filename);
 		if (inputFile.good()) {
 
 			string magic;
@@ -27,11 +27,11 @@ namespace image {
 			ppm = PPM(magic, width, height, maxColor);
 			for (int j = 0; j < height; j++) {
 				for (int i = 0; i < width; i++) {
-					int8_t r, g, b;
-					inputFile >> r >> g >> b;
-					ppm.data[0 + i * 3 + j * 3 * width] = r / maxColor;
-					ppm.data[1 + i * 3 + j * 3 * width] = g / maxColor;
-					ppm.data[2 + i * 3 + j * 3 * width] = b / maxColor;
+					for (int c = 0; c < 3; c++) {
+						uint8_t colorValue;
+						inputFile >> colorValue;
+						ppm.data[c + i * 3 + j * 3 * width] = colorValue * 1.0f / maxColor;
+					}
 				}
 			}
 		}
@@ -39,6 +39,7 @@ namespace image {
 			cout << "File not found!!!";
 		}
 
+		cout << "File was read successfully" << endl;
 		return ppm.data;
 	}
 
