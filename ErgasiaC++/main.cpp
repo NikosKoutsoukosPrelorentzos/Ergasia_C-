@@ -7,7 +7,9 @@ int main() {
 	math::Array2D<int> arr(4, 5);
 	math::Array2D<int> arr2 = arr;
 
-	image::ReadPPM("assets/Image01.ppm", &w, &h);
+	float* data = image::ReadPPM("assets/Image01.ppm", &w, &h);
+	image::WritePPM(data, w, h, "assets/output.ppm");
+
 	return 0;
 
 }
