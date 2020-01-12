@@ -1,5 +1,6 @@
 #pragma once
 #include "array2d.h"
+#include <iostream>
 
 namespace math
 {
@@ -25,14 +26,12 @@ namespace math
 	inline void Array2D<T>::setData(const T* const& data_ptr)
 	{
 		if (height == 0 || width == 0) {
-			std::cout << "Dimensions are zero" << std::endl;
-			exit(1);
+			throw std::exception("Dimensions are zero");
 		}
 		else {
 			buffer.resize(width * height);
-			for (int y = 0; y < height; y++) {
-				for (int x = 0; x < width; x++) {
-
+			for (unsigned int y = 0; y < height; y++) {
+				for (unsigned int x = 0; x < width; x++) {
 					buffer[x + y * width] = data_ptr[x + y * width];
 				}
 			}
@@ -51,9 +50,8 @@ namespace math
 		buffer.resize(width * height);
 		if (data_ptr != nullptr)
 		{
-			for (int y = 0; y < height; y++) {
-				for (int x = 0; x < width; x++) {
-
+			for (unsigned int y = 0; y < height; y++) {
+				for (unsigned int x = 0; x < width; x++) {
 					buffer[x + y * width] = data_ptr[x + y * width];
 				}
 			}
@@ -82,7 +80,6 @@ namespace math
 		this->setData(&right.buffer[0]);
 
 		return *this;
-		// TODO: insert return statement here
 	}
 
 }

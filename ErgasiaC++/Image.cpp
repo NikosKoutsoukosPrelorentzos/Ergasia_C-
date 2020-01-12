@@ -4,9 +4,10 @@
 
 
 bool Image::load(const std::string& filename, const std::string& format) {
-	if (format != "ppm") {
+	if (format != PPM_FORMAT) {
 		return false;
 	}
+
 	int w, h;
 	float* data = ReadPPM(filename.c_str(), &w, &h);
 	for (int i = 0; i < (w * h * 3)-2; i += 3) {
@@ -14,16 +15,18 @@ bool Image::load(const std::string& filename, const std::string& format) {
 	}
 	this->width = w;
 	this->height = h;
+	return true;
 }
 
 bool Image::save(const std::string& filename, const std::string& format) {
 	bool result = false;
-	if (format != "ppm") {
+	if (format != PPM_FORMAT) {
+		std::cout << "Currently we support only PPM format";
 		return false;
 	}
 	float* image_data = new float[width*height*3];
-	for (int y = 0; y < height; y ++) {
-		for (int x = 0; x < width; x++) {
+	for (unsigned int y = 0; y < height; y ++) {
+		for (unsigned int x = 0; x < width; x++) {
 			Vec3<float> color = this->buffer[x + y * width];
 			image_data[0 + x * 3 + y * 3 * width] = color.r;
 			image_data[1 + x * 3 + y * 3 * width] = color.g;
@@ -32,9 +35,8 @@ bool Image::save(const std::string& filename, const std::string& format) {
 			
 		}
 	}
-	const std::string filtered_name = "filtered_" + filename;
-	result = WritePPM(image_data, width, height, filtered_name.c_str());
-	if (result) {
+	result = WritePPM(image_data, width, height, filename.c_str());
+	if (!result) {
 		std::cout << "sto mpaoulo";
 	}
 	return result;

@@ -42,16 +42,8 @@ namespace image
 	*/
 	bool WritePPM(const float* data, int w, int h, const char* filename);
 
-	struct PPM
-	{
-		PPM();
-		PPM(string magic, int width, int height, int maxColor);
-		string magic;
-		int width;
-		int height;
-		int maxColor;
-		float* data;
-	};
+	const string P6_FORMAT = "P6";
+	const int MAX_COLOR = 255;
 } //namespace imaging
 
 #endif
